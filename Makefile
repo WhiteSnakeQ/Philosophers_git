@@ -4,7 +4,8 @@ SRC			= philosophers.c \
 			  del_obj.c \
 			  init_obj.c \
 			  file_work.c \
-			  convert_str.c
+			  convert_str.c	\
+			  additional_func.c 
 
 SRCDIR		= ./project/philosophers/
 OBJ			= ${addprefix ${SRCDIR}, ${SRC:.c=.o}}

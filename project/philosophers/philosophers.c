@@ -6,7 +6,7 @@
 /*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 10:05:18 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/04 11:02:10 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/04 13:44:16 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,6 @@ int	main(int argc, char **argv)
 			return (0);
 		}
 	}
-	get_time(prj, 1);
-	usleep(prj->num_philsr);
-	get_time(prj, 0);
 	clean_prj(&prj, NULL);
 	return (0);
 }
