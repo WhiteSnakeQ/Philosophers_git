@@ -6,7 +6,7 @@
 /*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 09:59:13 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/04 10:14:07 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/04 10:46:15 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "unistd.h"
 # include "stdlib.h"
 # include "fcntl.h"
+# include <sys/time.h>
 
 # define MALF "philo: Malloc fail\n"
 # define FILECRERR "philo: Cannot create file - philo_report\n"
@@ -46,6 +47,9 @@ typedef struct s_prj
 	int				t_sleep;
 	int				stop_game;
 	int				fd;
+	int				milisec;
+	unsigned int	sec;
+	struct timeval	time;
 	struct s_philo	**philos;
 	struct s_fork	**forks;
 }				t_prj;
