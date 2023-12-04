@@ -9,15 +9,18 @@ SRC			= philosophers.c \
 SRCDIR		= ./project/philosophers/
 OBJ			= ${addprefix ${SRCDIR}, ${SRC:.c=.o}}
 
-CC			= gcc
+CC			= cc
 FLAGS		= -Wall -Wextra -Werror -fsanitize=address
+
+.c.o:		
+			@$(CC) -c $(FLAGS) -o $@ $<
 
 all:		${NAME} clean
 
 ${NAME}:	${OBJ}
 			@${CC} ${FLAGS} ${OBJ} -o ${NAME}
 
-re:			fclean all
+re:			${NAME} clean
 
 clean:		
 			@rm -f ${OBJ}
@@ -25,4 +28,4 @@ clean:
 fclean:		clean
 			@rm -f ${NAME}
 
-.Phony:		all ${NAME} clean fclean
+.Phony:		all ${NAME} clean fclean re
