@@ -12,7 +12,21 @@
 # define WRINTP "philo: Invalid input\n"
 # define INVARG "philo: Invalid number of argument\n"
 
-typedef struct s_philosophers
+# define MINTIME 1
+# define MINDTIME 1
+
+typedef struct s_fork
+{
+    int             active;
+}               t_fork;
+
+struct s_philo
+{
+    struct s_prj   *mother;
+    int             action;
+}               t_philo;
+
+typedef struct s_prj
 {
     int             num_philsr;
     int             t_dead;
@@ -20,13 +34,17 @@ typedef struct s_philosophers
     int             t_sleep;
     int             stop_game;
     int             fd;
-}               t_philosophers;
+    struct s_philo  **philos; 
+    struct s_fork   **forks; 
+}               t_prj;
 
 //              Init_obj
-t_philosophers  *init_philo(char **argv, int fd);
+t_prj           *init_prj(char **argv, int fd);
 
 //              Delete_obj
-void            clean_philo(t_philosophers **philo, char *message);
+void            clean_prj(t_prj **philo, char *message);
+void            clean_forks(t_prj *prj, int size);
+void            clean_philos(t_prj *prj, int size);
 
 //              Additional_func
 void            write_file(int fd, char *message);
