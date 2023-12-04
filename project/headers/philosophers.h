@@ -6,7 +6,7 @@
 /*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 09:59:13 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/04 13:51:00 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/04 13:40:05 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,19 @@
 typedef struct s_fork
 {
 	int				active;
+	int				pers;
 }				t_fork;
 
-struct s_philo
+typedef struct s_philo
 {
-	pthread_t
+	pthread_t		pthread;
+	struct s_fork	*fork[2];
 	struct s_prj	*mother;
 	int				action;
+	int				number;
+	int				put_fork;
+	int				alr_eat;
+	unsigned int	sleep;
 }				t_philo;
 
 typedef struct s_prj
@@ -56,17 +62,21 @@ typedef struct s_prj
 	struct s_fork	**forks;
 }				t_prj;
 
-//	  Init_obj
+//		Main_work
+void		start_game(t_prj *prj);
+
+//		Init_obj
 t_prj		*init_prj(char **argv, int fd);
 
-//	  Delete_obj
+//		Delete_obj
 void		clean_prj(t_prj **philo, char *message);
 void		clean_forks(t_prj *prj, int size);
 void		clean_philos(t_prj *prj, int size);
 
-//	  Additional_func
+//		Additional_func
 char		*to_str(unsigned int digit);
 void		write_file(int fd, char *message);
+void		get_time(t_prj *prj, int mod);
 int			log_intit(void);
 int			conv_digit(char *str);
 

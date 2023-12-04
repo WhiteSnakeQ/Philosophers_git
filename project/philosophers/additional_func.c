@@ -6,7 +6,7 @@
 /*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:02:39 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/04 13:43:59 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/04 13:29:44 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,27 @@ char	*to_str(unsigned int digit)
 	str[size] = '\0';
 	if (digit > 9)
 		fill_str(str, size - 1, digit);
+	else
+		str[0] = digit + '0';
 	return (str);
+}
+
+void	get_time(t_prj *prj, int mod)
+{
+	unsigned int	to_str;
+
+	if (mod == 1)
+	{
+		gettimeofday(&prj->time, NULL);
+		prj->sec = prj->time.tv_sec;
+		prj->milisec = prj->time.tv_usec;
+	}
+	else
+	{
+		gettimeofday(&prj->time, NULL);
+		to_str = ((prj->time.tv_sec - prj->sec) * 1000000) + \
+			(prj->time.tv_usec - prj->milisec);
+		printf("%u\n", to_str / 1000);
+		to_str = 0;
+	}
 }

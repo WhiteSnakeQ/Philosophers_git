@@ -12,26 +12,6 @@
 
 #include "../headers/philosophers.h"
 
-void	get_time(t_prj *prj, int mod)
-{
-	unsigned int	to_str;
-
-	if (mod == 1)
-	{
-		gettimeofday(&prj->time, NULL);
-		prj->sec = prj->time.tv_sec;
-		prj->milisec = prj->time.tv_usec;
-	}
-	else
-	{
-		gettimeofday(&prj->time, NULL);
-		to_str = ((prj->time.tv_sec - prj->sec) * 1000000) + \
-			(prj->time.tv_usec - prj->milisec);
-		printf("%u\n", to_str / 1000);
-		to_str = 0;
-	}
-}
-
 int	main(int argc, char **argv)
 {
 	t_prj			*prj;
@@ -55,6 +35,8 @@ int	main(int argc, char **argv)
 			return (0);
 		}
 	}
+	get_time(prj, 1);
+	start_game(prj);
 	clean_prj(&prj, NULL);
 	return (0);
 }

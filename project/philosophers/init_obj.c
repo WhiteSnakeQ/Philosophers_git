@@ -6,11 +6,23 @@
 /*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 10:04:43 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/04 10:14:03 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/04 12:34:07 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philosophers.h"
+
+static t_fork	*init_fork(void)
+{
+	t_fork *fork;
+
+	fork = malloc(sizeof(t_fork));
+	if (!fork)
+		return (fork);
+	fork->active = 0;
+	fork->pers = -1;
+	return (fork);
+}
 
 static t_prj	*init_philo(t_prj *prj)
 {
@@ -25,16 +37,22 @@ static t_prj	*init_philo(t_prj *prj)
 		clean_prj(&prj, MALF);
 	while (prj && ++i < prj->num_philsr)
 	{
-		prj->philos[i] = malloc(sizeof(t_philo));
-		if (!prj->philos[i])
-			clean_philos(prj, i);
+		prj->forks[i] = init_fork();
+		if (!prj->forks[i])
+			clean_forks(prj, i);
 	}
 	i = -1;
 	while (prj && ++i < prj->num_philsr)
 	{
-		prj->forks[i] = malloc(sizeof(t_fork));
-		if (!prj->forks[i])
-			clean_forks(prj, i);
+		prj->philos[i] = malloc(sizeof(t_philo));
+		if (!prj->philos[i])
+			clean_philos(prj, i);
+		else
+		{
+			prj->philos[i]->number = i + 1;
+			prj->philos[i]->fork[0] = prj->forks[i];
+			prj->philos[i]->fork[1] = prj->forks[(i + 1) % prj->num_philsr];
+		}
 	}
 	if (!prj || !prj->philos || !prj->forks)
 		clean_prj(&prj, MALF);

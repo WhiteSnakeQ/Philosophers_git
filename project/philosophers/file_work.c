@@ -12,7 +12,7 @@
 
 #include "../headers/philosophers.h"
 
-int static	str_len(char *str)
+static int	str_len(char *str)
 {
 	int	i;
 
