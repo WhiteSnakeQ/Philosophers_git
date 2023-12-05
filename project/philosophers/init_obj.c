@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_obj.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 10:04:43 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/04 12:34:07 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/05 15:28:31 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,19 @@ static t_fork	*init_fork(void)
 	if (!fork)
 		return (fork);
 	fork->active = 0;
-	fork->pers = -1;
 	return (fork);
+}
+
+static void	setub_philo(t_philo *philo, t_prj *prj, int i)
+{
+	philo->mother = prj;
+	philo->alr_eat =prj->stop_game;
+	philo->sleep = 0;
+	philo->action = 0;
+	philo->t_dead = prj->t_dead;
+	philo->timer = 1;
+	philo->fork[0] = prj->forks[i];
+	philo->fork[1] = prj->forks[(i + 1) % prj->num_philsr];
 }
 
 static t_prj	*init_philo(t_prj *prj)
@@ -50,12 +61,11 @@ static t_prj	*init_philo(t_prj *prj)
 		else
 		{
 			prj->philos[i]->number = i + 1;
-			prj->philos[i]->fork[0] = prj->forks[i];
-			prj->philos[i]->fork[1] = prj->forks[(i + 1) % prj->num_philsr];
+			setub_philo(prj->philos[i], prj, i);
 		}
 	}
 	if (!prj || !prj->philos || !prj->forks)
-		clean_prj(&prj, MALF);
+		return (NULL);
 	return (prj);
 }
 
@@ -72,12 +82,16 @@ t_prj	*init_prj(char **argv, int fd)
 	prj->fd = fd;
 	prj->stop_game = -1;
 	prj->num_philsr = conv_digit(argv[1]);
-	prj->t_dead = conv_digit(argv[2]);
-	prj->t_eat = conv_digit(argv[3]);
-	prj->t_sleep = conv_digit(argv[4]);
+	prj->t_dead = conv_digit(argv[2]) * 1000;
+	prj->t_eat = conv_digit(argv[3]) * 1000;
+	prj->t_sleep = conv_digit(argv[4]) * 1000;
 	if (prj->num_philsr < MINTIME || prj->t_dead < MINTIME \
 		|| prj->t_eat < MINTIME || prj->t_sleep < MINTIME)
+	{
+		prj->num_philsr = 0;
 		clean_prj(&prj, WRINTP);
+		return (prj);
+	}
 	prj->philos = NULL;
 	prj->forks = NULL;
 	return (init_philo(prj));

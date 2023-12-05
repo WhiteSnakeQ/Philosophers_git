@@ -6,7 +6,8 @@ SRC			= philosophers.c \
 			  file_work.c \
 			  convert_str.c	\
 			  additional_func.c \
-			  game_manager.c
+			  game_manager.c \
+			  actions.c
 
 SRCDIR		= ./project/philosophers/
 OBJ			= ${addprefix ${SRCDIR}, ${SRC:.c=.o}}
@@ -21,6 +22,7 @@ all:		${NAME} clean
 
 ${NAME}:	${OBJ}
 			@${CC} ${FLAGS} ${OBJ} -o ${NAME}
+			@echo "Done"
 
 re:			${NAME} clean
 

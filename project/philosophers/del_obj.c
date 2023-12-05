@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   del_obj.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 10:03:47 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/04 10:03:48 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/05 13:54:05 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	clean_philos(t_prj *prj, int size)
 	int	i;
 
 	i = 0;
-	if (!prj->philos)
+	if (!prj->philos || size <= 0)
 		return ;
 	while (i < size)
 		free(prj->philos[i++]);
@@ -29,7 +29,7 @@ void	clean_forks(t_prj *prj, int size)
 	int	i;
 
 	i = 0;
-	if (!prj->forks)
+	if (!prj->forks || size <= 0)
 		return ;
 	while (i < size)
 		free(prj->forks[i++]);

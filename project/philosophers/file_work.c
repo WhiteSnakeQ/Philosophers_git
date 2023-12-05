@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_work.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 10:04:04 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/04 10:04:16 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/05 12:12:20 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	log_intit(void)
 {
 	int	fd;
 
-	fd = open("philo_report", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	fd = open("philo_report.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 		printf("%s", FILECRERR);
 	return (fd);

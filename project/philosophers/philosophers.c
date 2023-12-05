@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 10:05:18 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/04 13:44:16 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/05 13:56:56 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	main(int argc, char **argv)
 			return (0);
 		}
 	}
-	get_time(prj, 1);
 	start_game(prj);
 	clean_prj(&prj, NULL);
 	return (0);

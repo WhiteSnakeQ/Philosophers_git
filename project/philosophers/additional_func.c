@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   additional_func.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:02:39 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/04 13:29:44 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/05 14:24:53 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,54 @@ char	*to_str(unsigned int digit)
 	return (str);
 }
 
-void	get_time(t_prj *prj, int mod)
+static char	*make_time(char *str)
 {
-	unsigned int	to_str;
+	char	*to_ret;
+	int		size;
+	int		m_str;
 
+	m_str = SIZE_TIME;
+	to_ret = malloc (sizeof(char) * (m_str + 1));
+	if (!to_ret)
+		return (str);
+	to_ret[m_str--] = '\0';
+	memset(to_ret, '0', 7);
+	size = 0;
+	while (str[size])
+		size++;
+	while (size >= 0)
+		to_ret[m_str--] = str[size--];
+	free(str);
+	return (to_ret);
+}
+
+int	get_time(t_prj *prj, int mod)
+{
+	unsigned int			digit;
+	static struct timeval	time;
+	char					*str;
+
+	gettimeofday(&time, NULL);
 	if (mod == 1)
 	{
 		gettimeofday(&prj->time, NULL);
 		prj->sec = prj->time.tv_sec;
 		prj->milisec = prj->time.tv_usec;
 	}
+	else if (mod == 2)
+	{
+		digit = ((time.tv_sec - prj->sec) * 1000000) + \
+			(time.tv_usec - prj->milisec);
+		return (digit);
+	}
 	else
 	{
-		gettimeofday(&prj->time, NULL);
-		to_str = ((prj->time.tv_sec - prj->sec) * 1000000) + \
-			(prj->time.tv_usec - prj->milisec);
-		printf("%u\n", to_str / 1000);
-		to_str = 0;
+		digit = ((time.tv_sec - prj->sec) * 1000000) + \
+			(time.tv_usec - prj->milisec);
+		str = to_str(digit / 1000);
+		str = make_time(str);
+		write_file(prj->fd, str);
+		free(str);
 	}
+	return (0);
 }
