@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 10:04:43 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/05 15:28:31 by codespace        ###   ########.fr       */
+/*   Updated: 2023/12/05 23:34:11 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ static t_fork	*init_fork(void)
 static void	setub_philo(t_philo *philo, t_prj *prj, int i)
 {
 	philo->mother = prj;
-	philo->alr_eat =prj->stop_game;
+	philo->alr_eat =prj->eat_max;
 	philo->sleep = 0;
 	philo->action = 0;
 	philo->t_dead = prj->t_dead;
-	philo->timer = 1;
+	philo->t_l_eat = 1;
 	philo->fork[0] = prj->forks[i];
 	philo->fork[1] = prj->forks[(i + 1) % prj->num_philsr];
 }
@@ -80,7 +80,7 @@ t_prj	*init_prj(char **argv, int fd)
 		return (prj);
 	}
 	prj->fd = fd;
-	prj->stop_game = -1;
+	prj->eat_max = -1;
 	prj->num_philsr = conv_digit(argv[1]);
 	prj->t_dead = conv_digit(argv[2]) * 1000;
 	prj->t_eat = conv_digit(argv[3]) * 1000;

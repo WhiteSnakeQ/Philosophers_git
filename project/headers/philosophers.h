@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 09:59:13 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/05 15:28:15 by codespace        ###   ########.fr       */
+/*   Updated: 2023/12/06 00:26:58 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define EAT " is eating\n"
 # define SLEEP " is sleeping\n"
 # define DEAD " died\n"
+# define THINK " is thinking\n"
 
 # define MINTIME 0
 # define MINDTIME 0
@@ -47,7 +48,6 @@ typedef struct s_fork
 typedef struct s_philo
 {
 	pthread_t		pthread;
-	pthread_t		dead;
 	struct s_fork	*fork[2];
 	struct s_prj	*mother;
 	int				action;
@@ -55,7 +55,7 @@ typedef struct s_philo
 	int				alr_eat;
 	int				sleep;
 	int				t_dead;
-	int				timer;
+	int				t_l_eat;
 }				t_philo;
 
 typedef struct s_prj
@@ -66,7 +66,7 @@ typedef struct s_prj
 	int				t_dead;
 	int				t_eat;
 	int				t_sleep;
-	int				stop_game;
+	int				eat_max;
 	int				fd;
 	int				milisec;
 	int				sec;
@@ -78,7 +78,7 @@ typedef struct s_prj
 //		Main_work
 void		start_game(t_prj *prj);
 void		*dead_wait(void *ph);
-
+void 		print_dead(t_philo *philo);
 //		Init_obj
 t_prj		*init_prj(char **argv, int fd);
 

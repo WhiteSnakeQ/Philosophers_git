@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 10:05:18 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/05 13:56:56 by codespace        ###   ########.fr       */
+/*   Updated: 2023/12/06 00:14:29 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	main(int argc, char **argv)
 		return (0);
 	if (argc == 6)
 	{
-		prj->stop_game = conv_digit(argv[5]);
-		if (prj->stop_game < MINDTIME)
+		prj->eat_max = conv_digit(argv[5]);
+		if (prj->eat_max < MINDTIME)
 		{
 			clean_prj(&prj, WRINTP);
 			return (0);

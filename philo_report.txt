@@ -1,30 +1,26 @@
-0000001 1 has taken a fork
-0000001 1 has taken a fork
-0000001 1 is eating
-0000010 3 has taken a fork
-0000011 3 has taken a fork
-0000011 3 is eating
-0002002 1 is sleeping
-0002002 5 has taken a fork
-0002002 5 has taken a fork
-0002002 5 is eating
-0002011 3 is sleeping
-0002011 2 has taken a fork
-0002011 2 has taken a fork
-0002011 2 is eating
-0004002 5 is sleeping
-0004002 4 has taken a fork
-0004003 4 has taken a fork
-0004003 4 is eating
-0004012 2 is sleeping
-0004012 1 has taken a fork
-0004012 1 has taken a fork
-0004012 1 is eating
-
-
+0000005 1 has taken a fork
+0000006 1 has taken a fork
+0000006 1 is eating
+0000032 3 has taken a fork
+0000036 3 has taken a fork
+0000036 3 is eating
+0000208 1 is sleeping
+0000208 5 has taken a fork
+0000211 5 has taken a fork
+0000212 5 is eating
+0000236 3 is sleeping
+0000237 2 has taken a fork
+0000237 2 has taken a fork
+0000237 2 is eating
+0000408 1 is thinking
+0000412 5 is sleeping
+0000413 4 has taken a fork
+0000413 4 has taken a fork
+0000413 4 is eating
+0000437 3 is thinking
 
 ********************
 ********************
-0005006 3 died
+0000437 3 died
 ********************
 ********************

@@ -6,14 +6,13 @@ SRC			= philosophers.c \
 			  file_work.c \
 			  convert_str.c	\
 			  additional_func.c \
-			  game_manager.c \
-			  actions.c
+			  game_manager.c 
 
 SRCDIR		= ./project/philosophers/
 OBJ			= ${addprefix ${SRCDIR}, ${SRC:.c=.o}}
 
 CC			= cc
-FLAGS		= -Wall -Wextra -Werror -fsanitize=address
+FLAGS		= -g -Wall -Wextra -Werror -fsanitize=address
 
 .c.o:		
 			@$(CC) -c $(FLAGS) -o $@ $<
