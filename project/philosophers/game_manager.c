@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 10:07:21 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/06 00:26:40 by codespace        ###   ########.fr       */
+/*   Updated: 2023/12/06 01:36:15 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int	eating(t_philo *philo)
 	static int	last_eat = 0;
 	static int	first = 0;
 
-	if (last_eat + philo->mother->t_eat > last_eat + philo->t_dead && first++ != 0)
+	if (last_eat + philo->mother->t_eat > philo->t_l_eat + philo->t_dead && first++ != 0)
 	{
 		usleep(philo->t_dead);
 		print_dead(philo);
@@ -103,7 +103,7 @@ static int	eating(t_philo *philo)
 static void	sleeping(t_philo *philo)
 {
 	philo->sleep = philo->mother->t_sleep;
-	if (philo->sleep > philo->t_dead)
+	if (philo->sleep >= philo->t_dead)
 		philo->sleep = philo->t_dead;
 	philo->t_dead -= philo->sleep;
 	action(SLEEP, philo, philo->mother, 0);
@@ -116,6 +116,7 @@ static void	*play_one(void *ph)
 
 	philo = (t_philo *)ph;
 	philo->t_l_eat = 0;
+	gettimeofday(&philo->time, NULL);
 	if (philo->mother->num_philsr == 1)
 	{
 		usleep(philo->t_dead);

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 09:59:13 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/06 00:26:58 by codespace        ###   ########.fr       */
+/*   Updated: 2023/12/06 01:35:45 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_philo
 	pthread_t		pthread;
 	struct s_fork	*fork[2];
 	struct s_prj	*mother;
+	struct timeval	time;
 	int				action;
 	int				number;
 	int				alr_eat;
