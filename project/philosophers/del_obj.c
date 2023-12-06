@@ -20,7 +20,10 @@ void	clean_philos(t_prj *prj, int size)
 	if (!prj->philos || size <= 0)
 		return ;
 	while (i < size)
-		free(prj->philos[i++]);
+	{
+		free(prj->philos[i]);
+		prj->philos[i++] = NULL;
+	}	
 	free(prj->philos);
 }
 

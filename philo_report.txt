@@ -1,43 +1,70 @@
 0000000 1 has taken a fork
+0000000 3 has taken a fork
 0000001 1 has taken a fork
+0000001 3 has taken a fork
 0000001 1 is eating
-0000002 3 has taken a fork
-0000002 3 has taken a fork
-0000003 3 is eating
-0000202 1 is sleeping
+0000001 3 is eating
+0000201 1 is sleeping
+0000201 2 has taken a fork
+0000202 3 is sleeping
+0000202 2 has taken a fork
 0000202 5 has taken a fork
+0000202 2 is eating
 0000202 5 has taken a fork
 0000202 5 is eating
-0000203 3 is sleeping
-0000203 2 has taken a fork
-0000203 2 has taken a fork
-0000203 2 is eating
-0000402 1 is thinking
-0000403 4 has taken a fork
-0000403 5 is sleeping
-0000403 4 has taken a fork
+0000401 1 is thinking
+0000402 3 is thinking
+0000402 2 is sleeping
+0000402 5 is sleeping
+0000402 4 has taken a fork
+0000402 1 has taken a fork
+0000402 4 has taken a fork
+0000403 1 has taken a fork
 0000403 4 is eating
-0000403 3 is thinking
-0000404 2 is sleeping
-0000404 1 has taken a fork
-0000404 1 has taken a fork
-0000404 1 is eating
-0000603 5 is thinking
+0000403 1 is eating
+0000602 2 is thinking
+0000602 5 is thinking
 0000603 4 is sleeping
 0000603 3 has taken a fork
+0000603 1 is sleeping
 0000603 3 has taken a fork
-0000604 3 is eating
-0000604 2 is thinking
-0000604 1 is sleeping
+0000603 5 has taken a fork
+0000603 3 is eating
+0000603 5 has taken a fork
+0000603 5 is eating
 0000803 4 is thinking
-0000804 3 is sleeping
+0000803 1 is thinking
+0000803 3 is sleeping
+0000803 2 has taken a fork
+0000804 2 has taken a fork
+0000804 5 is sleeping
+0000804 2 is eating
 0000804 4 has taken a fork
 0000804 4 has taken a fork
 0000804 4 is eating
-0000805 1 is thinking
+0001004 3 is thinking
+0001004 2 is sleeping
+0001004 5 is thinking
+0001004 1 has taken a fork
+0001005 4 is sleeping
+0001005 1 has taken a fork
+0001005 3 has taken a fork
+0001005 1 is eating
+0001005 3 has taken a fork
+0001005 3 is eating
+0001204 2 is thinking
+0001205 4 is thinking
+0001205 1 is sleeping
+0001206 3 is sleeping
+0001206 2 has taken a fork
+0001206 4 has taken a fork
+0001206 2 has taken a fork
+0001206 4 has taken a fork
+0001206 2 is eating
+0001206 4 is eating
 
 ********************
 ********************
-0000903 5 died
+0001305 5 died
 ********************
 ********************

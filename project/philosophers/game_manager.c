@@ -50,7 +50,16 @@ static void	action(char *message, t_philo *philo, t_prj *prj, int mod)
 	}
 }
 
-void print_dead(t_philo  *philo)
+void	delete_mut(t_fork **forks, int size)
+{
+	int i;
+
+	i = 0;
+	while (i < size)
+		pthread_mutex_destroy(&forks[i++]->mutex);
+}
+
+void	print_dead(t_philo  *philo)
 {
 	int	 		fd;
 	char		*str;
@@ -59,6 +68,7 @@ void print_dead(t_philo  *philo)
 	if (i != 0)
 		return ;
 	i++;
+	delete_mut(philo->mother->forks, philo->mother->num_philsr);
 	fd = philo->mother->fd;
 	philo->mother->finish = 1;
 	action(NULL, NULL, NULL, 666);
@@ -77,16 +87,19 @@ void print_dead(t_philo  *philo)
 static int	eating(t_philo *philo)
 {
 	static int	last_eat = 0;
-	static int	first = 0;
 
-	if (last_eat + philo->mother->t_eat > philo->t_l_eat + philo->t_dead && first++ != 0)
+	if (!philo)
+		return (0);
+	if (last_eat + philo->mother->t_eat > philo->t_l_eat + philo->t_dead && (philo->fork[0]->active == 1 || philo->fork[1]->active == 1))
 	{
 		usleep(philo->t_dead);
 		print_dead(philo);
 		return (0);
 	}
 	pthread_mutex_lock(&philo->fork[0]->mutex);
+	philo->fork[0]->active = 1;
 	pthread_mutex_lock(&philo->fork[1]->mutex);
+	philo->fork[1]->active = 1;
 	last_eat = get_time(philo->mother, 2);
 	action(FORKT, philo, philo->mother, 0);
 	action(FORKT, philo, philo->mother, 0);
@@ -96,6 +109,10 @@ static int	eating(t_philo *philo)
 	philo->t_dead = philo->mother->t_dead;
 	pthread_mutex_unlock(&philo->fork[0]->mutex);
 	pthread_mutex_unlock(&philo->fork[1]->mutex);
+	if (!philo)
+		return (0);
+	philo->fork[1]->active = 0;
+	philo->fork[0]->active = 0;
 	philo->alr_eat--;
 	return (1);
 }
@@ -116,7 +133,7 @@ static void	*play_one(void *ph)
 
 	philo = (t_philo *)ph;
 	philo->t_l_eat = 0;
-	gettimeofday(&philo->time, NULL);
+	usleep(100);
 	if (philo->mother->num_philsr == 1)
 	{
 		usleep(philo->t_dead);
@@ -159,5 +176,5 @@ void	start_game(t_prj *prj)
 	i = -1;
 	while (++i < prj->num_philsr)
 		pthread_mutex_destroy(&prj->forks[i]->mutex);
-	usleep(100000);
+	usleep(prj->t_eat +prj->t_sleep);
 }
