@@ -18,6 +18,8 @@ int	main(int argc, char **argv)
 	int				fd;
 
 	fd = log_intit();
+	if (fd <= -1)
+		return (0);
 	if (argc <= 4 || argc >= 7)
 	{
 		write_file(fd, INVARG);
@@ -35,6 +37,7 @@ int	main(int argc, char **argv)
 			return (0);
 		}
 	}
+	setup_philo_eat(prj->philos, prj->num_philsr, prj->eat_max);
 	start_game(prj);
 	clean_prj(&prj, NULL);
 	return (0);

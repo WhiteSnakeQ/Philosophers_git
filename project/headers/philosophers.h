@@ -36,6 +36,9 @@
 # define MINTIME 0
 # define MINDTIME 0
 
+# define LOCK 0
+# define UNLOCK 1
+
 # define SIZE_TIME 8
 # define SIZE_SLEEP 100
 
@@ -51,6 +54,7 @@ typedef struct s_philo
 	struct s_fork	*fork[2];
 	struct s_prj	*mother;
 	struct timeval	time;
+	int				last_act;
 	int				action;
 	int				number;
 	int				alr_eat;
@@ -62,6 +66,7 @@ typedef struct s_philo
 typedef struct s_prj
 {
 	int				finish;
+	int				close;
 	int				c_finish;
 	int				num_philsr;
 	int				t_dead;
@@ -71,6 +76,8 @@ typedef struct s_prj
 	int				fd;
 	int				milisec;
 	int				sec;
+	pthread_mutex_t	mutex_eat;
+	pthread_mutex_t	dead;
 	struct timeval	time;
 	struct s_philo	**philos;
 	struct s_fork	**forks;
@@ -78,8 +85,7 @@ typedef struct s_prj
 
 //		Main_work
 void		start_game(t_prj *prj);
-void		*dead_wait(void *ph);
-void 		print_dead(t_philo *philo);
+
 //		Init_obj
 t_prj		*init_prj(char **argv, int fd);
 
@@ -87,10 +93,18 @@ t_prj		*init_prj(char **argv, int fd);
 void		clean_prj(t_prj **philo, char *message);
 void		clean_forks(t_prj *prj, int size);
 void		clean_philos(t_prj *prj, int size);
+void		delete_mut(t_fork **forks, int size);
 
 //		Additional_func
 char		*to_str(unsigned int digit);
+char		*make_time(char *str);
 void		write_file(int fd, char *message);
+void		action(char *message, t_philo *philo, int time);
+void		change_mutex_eat(t_philo *philo, int mod);
+void		print_dead(t_philo  *philo);
+void		eat_write(t_philo* philo);
+void		setup_philo_eat(t_philo **philos, int size, int value);
+void 		*finish(t_philo *philo);
 int			get_time(t_prj *prj, int mod);
 int			log_intit(void);
 int			conv_digit(char *str);

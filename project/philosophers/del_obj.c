@@ -56,3 +56,12 @@ void	clean_prj(t_prj **prj, char *message)
 	*prj = NULL;
 	return ;
 }
+
+void	delete_mut(t_fork **forks, int size)
+{
+	int i;
+
+	i = 0;
+	while (i < size)
+		pthread_mutex_destroy(&forks[i++]->mutex);
+}

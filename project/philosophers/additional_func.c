@@ -53,7 +53,7 @@ char	*to_str(unsigned int digit)
 	return (str);
 }
 
-static char	*make_time(char *str)
+char	*make_time(char *str)
 {
 	char	*to_ret;
 	int		size;

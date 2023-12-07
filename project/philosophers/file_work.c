@@ -38,3 +38,52 @@ int	log_intit(void)
 		printf("%s", FILECRERR);
 	return (fd);
 }
+
+void	action(char *message, t_philo *philo, int time)
+{
+	char 		*str;
+	char		*str2;
+
+	pthread_mutex_lock(&philo->mother->mutex_eat);
+	if (philo->mother->close == 1)
+		return ;
+	str = to_str(time);
+	str = make_time(str);
+	write_file(philo->mother->fd, str);
+	write_file(philo->mother->fd, " ");
+	str2 = to_str(philo->number);
+	write_file(philo->mother->fd, str2);
+	free(str2);
+	write_file(philo->mother->fd, message);
+	free(str);
+	pthread_mutex_unlock(&philo->mother->mutex_eat);
+}
+
+void	print_dead(t_philo  *philo)
+{
+	int	 		fd;
+	int			time;
+	char		*str;
+
+	pthread_mutex_lock(&philo->mother->dead);
+	time = get_time(philo->mother, 2);
+	philo->mother->close = 1; 
+	delete_mut(philo->mother->forks, philo->mother->num_philsr);
+	pthread_mutex_destroy(&philo->mother->mutex_eat);
+	fd = philo->mother->fd;
+	philo->mother->finish = 1;
+	usleep(1000);
+	write_file(fd, "\n********************");
+	write_file(fd, "\n********************\n");
+	str = make_time(to_str(time / 1000));
+	write_file(fd, str);
+	free(str);
+	write_file(fd, " ");
+	str = to_str(philo->number);
+	write_file(fd, str);
+	free(str);
+	write_file(fd, DEAD);
+	write_file(fd, "********************");
+	write_file(fd, "\n********************\n");
+	pthread_mutex_destroy(&philo->mother->dead);
+}

@@ -25,14 +25,14 @@ static t_fork	*init_fork(void)
 
 static void	setub_philo(t_philo *philo, t_prj *prj, int i)
 {
+	philo->number = i + 1;
 	philo->mother = prj;
-	philo->alr_eat =prj->eat_max;
 	philo->sleep = 0;
 	philo->action = 0;
 	philo->t_dead = prj->t_dead;
-	philo->t_l_eat = 1;
 	philo->fork[0] = prj->forks[i];
 	philo->fork[1] = prj->forks[(i + 1) % prj->num_philsr];
+	philo->t_l_eat = 0;
 }
 
 static t_prj	*init_philo(t_prj *prj)
@@ -59,14 +59,18 @@ static t_prj	*init_philo(t_prj *prj)
 		if (!prj->philos[i])
 			clean_philos(prj, i);
 		else
-		{
-			prj->philos[i]->number = i + 1;
 			setub_philo(prj->philos[i], prj, i);
-		}
 	}
-	if (!prj || !prj->philos || !prj->forks)
-		return (NULL);
 	return (prj);
+}
+
+void	setup_philo_eat(t_philo **philos, int size, int value)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+		philos[i++]->alr_eat = value;
 }
 
 t_prj	*init_prj(char **argv, int fd)

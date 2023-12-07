@@ -6,7 +6,8 @@ SRC			= philosophers.c \
 			  file_work.c \
 			  convert_str.c	\
 			  additional_func.c \
-			  game_manager.c 
+			  game_manager.c \
+			  add_func_manager.c
 
 SRCDIR		= ./project/philosophers/
 OBJ			= ${addprefix ${SRCDIR}, ${SRC:.c=.o}}
