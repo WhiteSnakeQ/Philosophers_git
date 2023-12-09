@@ -1,4 +1,4 @@
-NAME		= philo
+NAME		= philo_bonus
 
 SRC			= philosophers.c \
 			  del_obj.c \

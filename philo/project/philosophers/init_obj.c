@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_obj.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/04 10:04:43 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/05 23:34:11 by codespace        ###   ########.fr       */
+/*   Created: 2023/12/07 12:29:27 by kreys             #+#    #+#             */
+/*   Updated: 2023/12/09 04:01:53 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_fork	*init_fork(void)
 {
-	t_fork *fork;
+	t_fork	*fork;
 
 	fork = malloc(sizeof(t_fork));
 	if (!fork)
@@ -28,6 +28,7 @@ static void	setub_philo(t_philo *philo, t_prj *prj, int i)
 	philo->number = i + 1;
 	philo->mother = prj;
 	philo->sleep = 0;
+	philo->last_act = 0;
 	philo->action = 0;
 	philo->t_dead = prj->t_dead;
 	philo->fork[0] = prj->forks[i];

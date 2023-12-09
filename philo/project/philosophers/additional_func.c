@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   additional_func.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/04 11:02:39 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/05 14:24:53 by codespace        ###   ########.fr       */
+/*   Created: 2023/12/07 12:29:27 by kreys             #+#    #+#             */
+/*   Updated: 2023/12/07 12:30:29 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	get_time(t_prj *prj, int mod)
 {
 	unsigned int			digit;
 	static struct timeval	time;
-	char					*str;
 
 	gettimeofday(&time, NULL);
 	if (mod == 1)
@@ -92,15 +91,6 @@ int	get_time(t_prj *prj, int mod)
 		digit = ((time.tv_sec - prj->sec) * 1000000) + \
 			(time.tv_usec - prj->milisec);
 		return (digit);
-	}
-	else
-	{
-		digit = ((time.tv_sec - prj->sec) * 1000000) + \
-			(time.tv_usec - prj->milisec);
-		str = to_str(digit / 1000);
-		str = make_time(str);
-		write_file(prj->fd, str);
-		free(str);
 	}
 	return (0);
 }

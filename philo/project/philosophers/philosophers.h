@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/04 09:59:13 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/06 01:35:45 by codespace        ###   ########.fr       */
+/*   Created: 2023/12/07 12:29:27 by kreys             #+#    #+#             */
+/*   Updated: 2023/12/07 12:30:01 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define SLEEP " is sleeping\n"
 # define DEAD " died\n"
 # define THINK " is thinking\n"
+
+# define NAME "philo_report.txt"
 
 # define MINTIME 0
 # define MINDTIME 0
@@ -90,7 +92,7 @@ void		start_game(t_prj *prj);
 t_prj		*init_prj(char **argv, int fd);
 
 //		Delete_obj
-void		clean_prj(t_prj **philo, char *message);
+int			clean_prj(t_prj **philo, char *message);
 void		clean_forks(t_prj *prj, int size);
 void		clean_philos(t_prj *prj, int size);
 void		delete_mut(t_fork **forks, int size);
@@ -101,10 +103,10 @@ char		*make_time(char *str);
 void		write_file(int fd, char *message);
 void		action(char *message, t_philo *philo, int time);
 void		change_mutex_eat(t_philo *philo, int mod);
-void		print_dead(t_philo  *philo);
-void		eat_write(t_philo* philo);
+void		print_dead(t_philo *philo);
+void		eat_write(t_philo *philo);
 void		setup_philo_eat(t_philo **philos, int size, int value);
-void 		*finish(t_philo *philo);
+void		*finish(t_philo *philo);
 int			get_time(t_prj *prj, int mod);
 int			log_intit(void);
 int			conv_digit(char *str);

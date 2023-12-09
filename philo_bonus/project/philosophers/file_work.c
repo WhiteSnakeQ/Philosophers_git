@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_work.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/04 10:04:04 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/05 12:12:20 by codespace        ###   ########.fr       */
+/*   Created: 2023/12/07 12:29:27 by kreys             #+#    #+#             */
+/*   Updated: 2023/12/09 09:34:17 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,17 @@ int	log_intit(void)
 {
 	int	fd;
 
-	fd = open("philo_report.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	fd = open(NAME, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 		printf("%s", FILECRERR);
 	return (fd);
 }
 
-void	action(char *message, t_philo *philo, int time)
+int	action(char *message, t_philo *philo, int time)
 {
-	char 			*str;
+	char			*str;
 	char			*str2;
 
-	if (philo->mother->close == 1)
-		return ;
 	sem_wait(philo->mother->write);
 	str = to_str(time);
 	str = make_time(str);
@@ -54,26 +52,24 @@ void	action(char *message, t_philo *philo, int time)
 	str2 = to_str(philo->number);
 	write_file(philo->mother->fd, str2);
 	write_file(philo->mother->fd, message);
-	sem_post(philo->mother->write);
 	free(str2);
 	free(str);
+	sem_post(philo->mother->write);
+	return (1);
 }
 
-void	print_dead(t_philo  *philo)
+void	print_dead(t_philo *philo)
 {
-	int	 		fd;
+	int			fd;
 	int			time;
 	char		*str;
 
-	sem_wait(philo->mother->dead);
+	usleep(philo->t_dead);
+	sem_wait(philo->mother->write);
 	time = get_time(philo->mother, 2);
-	philo->mother->close = 1; 
-	close_sema(philo->mother);
 	fd = philo->mother->fd;
-	philo->mother->finish = 1;
 	usleep(1000);
-	write_file(fd, "\n********************");
-	write_file(fd, "\n********************\n");
+	write_file(fd, "********************\n********************\n");
 	str = make_time(to_str(time / 1000));
 	write_file(fd, str);
 	free(str);
@@ -82,8 +78,6 @@ void	print_dead(t_philo  *philo)
 	write_file(fd, str);
 	free(str);
 	write_file(fd, DEAD);
-	write_file(fd, "********************");
-	write_file(fd, "\n********************\n");
-	sem_close(philo->mother->dead);
-	sem_unlink("/dead");
+	write_file(fd, "********************\n********************\n");
+	exit(1);
 }

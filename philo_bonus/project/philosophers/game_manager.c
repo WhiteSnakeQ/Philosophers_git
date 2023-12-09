@@ -3,69 +3,70 @@
 /*                                                        :::      ::::::::   */
 /*   game_manager.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/04 10:07:21 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/06 01:36:15 by codespace        ###   ########.fr       */
+/*   Created: 2023/12/07 12:29:27 by kreys             #+#    #+#             */
+/*   Updated: 2023/12/09 09:35:09 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers_bonus.h"
 
-static int	eating(t_philo *philo)
+static void	eating(t_philo *philo)
 {
-	static int	last_eat = 0;
-	static int	finish = 0;
+	int	comp;
 
-	if (last_eat + philo->mother->t_eat >= philo->t_l_eat + philo->t_dead)
-	{
-		usleep(philo->t_dead);
+	if (philo->mother->num_philsr % 2 == 0)
+		comp = philo->t_dead - (philo->mother->t_eat - philo->mother->t_sleep);
+	else
+		comp = philo->t_dead - (philo->mother->t_eat);
+	if (comp <= 0 && philo->complt != 0)
 		print_dead(philo);
-		return (0);
-	}
-	sem_wait(philo->mother->sema_forks); 
-	if (philo->mother->close == 1)
-		return (0);
+	sem_wait(philo->mother->sema_forks);
+	sem_wait(philo->mother->sema_forks);
 	philo->last_act = get_time(philo->mother, 2);
 	eat_write(philo);
-	usleep(philo->mother->t_sleep);
-	philo->t_l_eat = get_time(philo->mother, 2);
-	philo->t_dead = philo->mother->t_dead;
-	if (++finish % (philo->mother->num_philsr / 2) == 0)
-		last_eat += philo->mother->t_eat;
+	if (philo->mother->t_dead <= philo->mother->t_eat)
+	{
+		philo->last_act = 0;
+		philo->t_dead = philo->mother->t_dead;
+		print_dead(philo);
+	}
+	usleep(philo->mother->t_eat);
+	philo->t_dead = philo->mother->t_dead - philo->mother->t_eat;
+	sem_post(philo->mother->sema_forks);
 	sem_post(philo->mother->sema_forks);
 	philo->alr_eat--;
-	return (1);
+	philo->complt++;
 }
 
-static void	sleep_p(t_philo *philo)
+static int	sleep_p(t_philo *philo)
 {
 	int	time;
 
-	if (philo->mother->close == 1)
-		return ;
 	time = get_time(philo->mother, 2);
 	action(SLEEP, philo, time / 1000);
 	if (philo->t_dead - philo->mother->t_sleep <= 0)
 	{
+		philo->last_act = get_time(philo->mother, 2);
 		usleep(philo->t_dead);
 		print_dead(philo);
-		return ;
+		return (666);
 	}
 	else
 	{
 		philo->t_dead -= philo->mother->t_sleep;
 		usleep(philo->mother->t_sleep);
+		philo->last_act = get_time(philo->mother, 2);
 		time = get_time(philo->mother, 2);
 		action(THINK, philo, time / 1000);
 	}
+	return (0);
 }
 
-void	*play_one(void *ph)
+void	*play_one(t_philo *philo)
 {
-	t_philo		*philo;
-
-	philo = (t_philo *)ph;
+	printf("%d\n", get_time(philo->mother, 2));
 	if (philo->mother->num_philsr == 1)
 	{
 		usleep(philo->t_dead);
@@ -76,26 +77,9 @@ void	*play_one(void *ph)
 	{
 		eating(philo);
 		if (philo->alr_eat == 0)
-			return (finish(philo));
-		sleep_p(philo);
-		if (philo->mother->close == 1)	
-			return (finish(philo));
+			return (finish(&philo));
+		if (sleep_p(philo) == 666)
+			return (0);
 	}
-	return (0);
-}
-
-void	start_game(t_prj *prj)
-{
-	pid_t			pid;
-
-	prj->finish = 0;
-	prj->c_finish = 0;
-	prj->close = 0;
-	get_time(prj, 1);
-	pid = fork();
-	if (pid == 0)
-		made_process(prj, -1);
-	while (prj->finish == 0)
-		usleep(10000);
-	usleep(prj->t_eat + prj->t_sleep);
+	return (finish(&philo));
 }

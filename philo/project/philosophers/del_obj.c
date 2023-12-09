@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   del_obj.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/04 10:03:47 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/05 13:54:05 by codespace        ###   ########.fr       */
+/*   Created: 2023/12/07 12:29:27 by kreys             #+#    #+#             */
+/*   Updated: 2023/12/07 12:30:24 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	clean_philos(t_prj *prj, int size)
 	{
 		free(prj->philos[i]);
 		prj->philos[i++] = NULL;
-	}	
+	}
 	free(prj->philos);
 }
 
@@ -39,12 +39,12 @@ void	clean_forks(t_prj *prj, int size)
 	free(prj->forks);
 }
 
-void	clean_prj(t_prj **prj, char *message)
+int	clean_prj(t_prj **prj, char *message)
 {
 	if ((!prj || !*prj) && !message)
 	{
 		printf("%s", MALF);
-		return ;
+		return (0);
 	}
 	if (message)
 		write_file((*prj)->fd, message);
@@ -54,12 +54,12 @@ void	clean_prj(t_prj **prj, char *message)
 		clean_forks(*prj, (*prj)->num_philsr);
 	free(*prj);
 	*prj = NULL;
-	return ;
+	return (0);
 }
 
 void	delete_mut(t_fork **forks, int size)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < size)

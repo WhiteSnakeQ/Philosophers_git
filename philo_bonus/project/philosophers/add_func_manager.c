@@ -1,44 +1,60 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   file_work.c										:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: codespace <codespace@student.42.fr>		+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2023/12/04 10:04:04 by kreys			 #+#	#+#			 */
-/*   Updated: 2023/12/05 12:12:20 by codespace		###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   add_func_manager.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/07 12:29:27 by kreys             #+#    #+#             */
+/*   Updated: 2023/12/09 08:47:46 by kreys            ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers_bonus.h"
 
-void	*finish(t_philo *philo)
+void	*finish(t_philo **philo)
 {
-	philo->mother->c_finish++;
-	if (philo->mother->c_finish == philo->mother->num_philsr)
-		 philo->mother->finish = 1;
 	return (0);
 }
 
-void	eat_write(t_philo* philo)
+int	eat_write(t_philo *philo)
 {
 	action(FORKT, philo, philo->last_act / 1000);
 	action(FORKT, philo, philo->last_act / 1000);
 	action(EAT, philo, philo->last_act / 1000);
+	return (1);
+}
+
+void	kill_all(int size, t_prj *prj)
+{
+	int	i;
+
+	i = 0;
+	while (size > i)
+	{
+		printf("%d %d\n", prj->philos[i].pid, get_time(prj, 2));
+		kill(prj->philos[i++].pid, 15);
+	}
+	close_sema(prj);
 }
 
 void	made_process(t_prj *prj, int i)
 {
-	pid_t			pid2;
+	int		f;
 
 	while (++i < prj->num_philsr)
+		setub_philo(&prj->philos[i], prj, i);
+	i = -1;
+	get_time(prj, 1);
+	while (++i < prj->num_philsr)
 	{
-		pid2 = fork();
-		if (pid2 == 0)
-		{
-			pthread_create(&prj->philos[i]->pthread, NULL, &play_one, prj->philos[i]);
-			pthread_join(prj->philos[i]->pthread, NULL);
-		}			
+		prj->philos[i].pid = fork();
+		if (prj->philos[i].pid == -1)
+			exit(1);
+		if (prj->philos[i].pid == 0)
+			play_one(&prj->philos[i]);
 	}
-	exit(0);
+	printf("%d last\n", get_time(prj, 2));
+	waitpid(-1, &f, 0);
+	kill_all(prj->num_philsr, prj);
 }

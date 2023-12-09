@@ -1,0 +1,22 @@
+0000000 1 has taken a fork
+0000000 1 has taken a fork
+0000000 1 is eating
+0000020 3 has taken a fork
+0000020 3 has taken a fork
+0000020 3 is eating
+0002002 1 is sleeping
+0002021 3 is sleeping
+0002021 2 has taken a fork
+0002021 2 has taken a fork
+0002021 2 is eating
+0002021 4 has taken a fork
+0002021 4 has taken a fork
+0002021 4 is eating
+0003002 1 is thinking
+0003022 3 is thinking
+
+********************
+********************
+0003102 1 died
+********************
+********************

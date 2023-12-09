@@ -1,0 +1,11 @@
+0000026 1 has taken a fork
+0000026 1 has taken a fork
+0000026 1 is eating
+0000053 2 has taken a fork
+0000053 2 has taken a fork
+0000053 2 is eating
+********************
+********************
+0000217 1 died
+********************
+********************

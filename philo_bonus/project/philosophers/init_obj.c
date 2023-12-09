@@ -3,63 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   init_obj.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/04 10:04:43 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/05 23:34:11 by codespace        ###   ########.fr       */
+/*   Created: 2023/12/07 12:29:38 by kreys             #+#    #+#             */
+/*   Updated: 2023/12/09 08:51:18 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers_bonus.h"
 
-static void	setub_philo(t_philo *philo, t_prj *prj, int i)
+void	setub_philo(t_philo *philo, t_prj *prj, int i)
 {
 	philo->number = i + 1;
 	philo->mother = prj;
-	philo->sleep = 0;
-	philo->action = 0;
 	philo->t_dead = prj->t_dead;
 	philo->t_l_eat = 0;
+	philo->complt = 0;
 }
 
-static t_prj	*init_philo(t_prj *prj)
+static void	init_additional(t_prj *prj)
 {
-	int	i;
+	int	f;
 
-	prj->philos = malloc(sizeof(t_philo) * prj->num_philsr);
-	if (!prj->philos)
-		clean_prj(&prj, MALF);
-	prj->write = malloc(sizeof(t_philo) * prj->num_philsr);
-	if (!prj->write)
-		clean_prj(&prj, MALF);
-	i = -1;
-	while (prj && ++i < prj->num_philsr)
-	{
-		prj->philos[i] = malloc(sizeof(t_philo));
-		if (!prj->philos[i])
-			clean_philos(prj, i);
-		else
-			setub_philo(prj->philos[i], prj, i);
-	}
-	return (prj);
+	sem_unlink(SEM_WRITE);
+	sem_unlink(SEM_EAT);
+	prj->write = sem_open(SEM_WRITE, O_CREAT, 0644, 1);
+	prj->sema_forks = sem_open(SEM_EAT, O_CREAT, 0644, prj->num_philsr);
 }
 
-void	setup_philo_eat(t_philo **philos, int size, int value)
+t_prj	*init_prj(char **argv, int fd, t_prj *prj)
 {
-	int	i;
-
-	i = 0;
-	while (i < size)
-		philos[i++]->alr_eat = value;
-}
-
-t_prj	*init_prj(char **argv, int fd)
-{
-	t_prj	*prj;
-
-	prj = malloc(sizeof(t_prj));
-	if (!prj)
-		return (prj);
 	prj->fd = fd;
 	prj->eat_max = -1;
 	prj->num_philsr = conv_digit(argv[1]);
@@ -70,16 +43,14 @@ t_prj	*init_prj(char **argv, int fd)
 		|| prj->t_eat < MINTIME || prj->t_sleep < MINTIME)
 	{
 		prj->num_philsr = 0;
-		clean_prj(&prj, WRINTP);
-		return (prj);
+		exit(0);
 	}
-	prj->philos = NULL;
-	prj->write = NULL;
-	sem_unlink("/writing");
-	sem_unlink("/dead");
-	sem_unlink("/eat");
-	prj->write = sem_open("/writing", O_CREAT, S_IRWXU, 1);
-	prj->sema_forks = sem_open("/eat", O_CREAT, S_IRWXU, prj->num_philsr);
-	prj->dead = sem_open("/dead", O_CREAT, S_IRWXU, 1);
-	return (init_philo(prj));
+	init_additional(prj);
+	if (prj->write == SEM_FAILED || \
+		prj->sema_forks == SEM_FAILED)
+	{
+		close_sema(prj);
+		exit(0);
+	}
+	return (prj);
 }

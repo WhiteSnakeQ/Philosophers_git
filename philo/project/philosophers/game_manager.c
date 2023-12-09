@@ -3,39 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   game_manager.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/04 10:07:21 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/06 01:36:15 by codespace        ###   ########.fr       */
+/*   Created: 2023/12/07 12:29:27 by kreys             #+#    #+#             */
+/*   Updated: 2023/12/09 06:12:38 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static int	eating(t_philo *philo)
+static void	eating(t_philo *philo)
 {
-	static int	last_eat = 0;
-	static int	finish = 0;
+	int	comp;
 
-	if (last_eat + philo->mother->t_eat >= philo->t_l_eat + philo->t_dead && (philo->fork[0]->active == 1 || philo->fork[1]->active == 1))
+	if (philo->mother->num_philsr % 2 == 0)
+		comp = philo->t_dead - (philo->mother->t_eat - philo->mother->t_sleep);
+	else
+		comp = philo->t_dead - (philo->mother->t_eat);
+	if (comp <= 0)
 	{
 		usleep(philo->t_dead);
 		print_dead(philo);
-		return (0);
 	}
+	philo->t_l_eat = get_time(philo->mother, 2);
 	change_mutex_eat(philo, LOCK);
 	if (philo->mother->close == 1)
-		return (0);
+		return ;
 	philo->last_act = get_time(philo->mother, 2);
 	eat_write(philo);
-	usleep(philo->mother->t_sleep);
-	philo->t_l_eat = get_time(philo->mother, 2);
-	philo->t_dead = philo->mother->t_dead;
-	if (++finish % (philo->mother->num_philsr / 2) == 0)
-		last_eat += philo->mother->t_eat;
+	usleep(philo->mother->t_eat);
+	philo->t_dead = philo->mother->t_dead - philo->mother->t_eat;
 	change_mutex_eat(philo, UNLOCK);
 	philo->alr_eat--;
-	return (1);
 }
 
 static void	sleep_p(t_philo *philo)
@@ -48,6 +47,7 @@ static void	sleep_p(t_philo *philo)
 	action(SLEEP, philo, time / 1000);
 	if (philo->t_dead - philo->mother->t_sleep <= 0)
 	{
+		philo->last_act = get_time(philo->mother, 2);
 		usleep(philo->t_dead);
 		print_dead(philo);
 		return ;
@@ -56,6 +56,7 @@ static void	sleep_p(t_philo *philo)
 	{
 		philo->t_dead -= philo->mother->t_sleep;
 		usleep(philo->mother->t_sleep);
+		philo->last_act = get_time(philo->mother, 2);
 		time = get_time(philo->mother, 2);
 		action(THINK, philo, time / 1000);
 	}
@@ -78,7 +79,7 @@ static void	*play_one(void *ph)
 		if (philo->alr_eat == 0)
 			return (finish(philo));
 		sleep_p(philo);
-		if (philo->mother->close == 1)	
+		if (philo->mother->close == 1)
 			return (finish(philo));
 	}
 	return (0);
@@ -99,7 +100,8 @@ void	start_game(t_prj *prj)
 	i = -1;
 	get_time(prj, 1);
 	while (++i < prj->num_philsr)
-		pthread_create(&prj->philos[i]->pthread, NULL, &play_one, prj->philos[i]);
+		pthread_create(&prj->philos[i]->pthread, NULL, \
+			&play_one, prj->philos[i]);
 	i = -1;
 	while (prj->finish == 0)
 		usleep(10000);

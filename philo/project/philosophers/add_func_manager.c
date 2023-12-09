@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   file_work.c										:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: codespace <codespace@student.42.fr>		+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2023/12/04 10:04:04 by kreys			 #+#	#+#			 */
-/*   Updated: 2023/12/05 12:12:20 by codespace		###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   add_func_manager.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/07 12:29:27 by kreys             #+#    #+#             */
+/*   Updated: 2023/12/07 12:30:31 by kreys            ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
@@ -16,7 +16,7 @@ void	*finish(t_philo *philo)
 {
 	philo->mother->c_finish++;
 	if (philo->mother->c_finish == philo->mother->num_philsr)
-		 philo->mother->finish = 1;
+		philo->mother->finish = 1;
 	return (0);
 }
 
@@ -38,7 +38,7 @@ void	change_mutex_eat(t_philo *philo, int mod)
 	}
 }
 
-void	eat_write(t_philo* philo)
+void	eat_write(t_philo *philo)
 {
 	action(FORKT, philo, philo->last_act / 1000);
 	action(FORKT, philo, philo->last_act / 1000);

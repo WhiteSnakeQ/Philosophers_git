@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/04 10:05:18 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/06 00:14:29 by codespace        ###   ########.fr       */
+/*   Created: 2023/12/07 12:29:27 by kreys             #+#    #+#             */
+/*   Updated: 2023/12/07 12:30:12 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ int	main(int argc, char **argv)
 	{
 		prj->eat_max = conv_digit(argv[5]);
 		if (prj->eat_max < MINDTIME)
-		{
-			clean_prj(&prj, WRINTP);
-			return (0);
-		}
+			return (clean_prj(&prj, WRINTP));
 	}
 	setup_philo_eat(prj->philos, prj->num_philsr, prj->eat_max);
 	start_game(prj);
