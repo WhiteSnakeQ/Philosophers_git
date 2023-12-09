@@ -6,7 +6,7 @@
 /*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:29:38 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/09 08:51:18 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/09 11:31:53 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	setub_philo(t_philo *philo, t_prj *prj, int i)
 
 static void	init_additional(t_prj *prj)
 {
-	int	f;
-
 	sem_unlink(SEM_WRITE);
 	sem_unlink(SEM_EAT);
 	prj->write = sem_open(SEM_WRITE, O_CREAT, 0644, 1);

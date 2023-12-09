@@ -13,7 +13,7 @@ SRCDIR		= ./project/philosophers/
 OBJ			= ${addprefix ${SRCDIR}, ${SRC:.c=.o}}
 
 CC			= cc
-FLAGS		= 
+FLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
 
 .c.o:		
 			@$(CC) -c $(FLAGS) -o $@ $<

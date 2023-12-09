@@ -6,7 +6,7 @@
 /*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:29:27 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/09 10:34:20 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/09 12:03:12 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <semaphore.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 # include <signal.h>
 
 # define MALF "Malloc fail\n"

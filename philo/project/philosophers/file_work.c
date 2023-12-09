@@ -6,7 +6,7 @@
 /*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:29:27 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/09 11:03:47 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/09 11:43:24 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	write_file(int fd, char *message)
 {
 	if (fd <= -1)
 		return ;
+	printf("%s", message);
 	write(fd, message, str_len(message));
 }
 

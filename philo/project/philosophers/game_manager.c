@@ -6,7 +6,7 @@
 /*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:29:27 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/09 11:01:28 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/09 11:41:23 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,5 @@ void	start_game(t_prj *prj)
 	i = -1;
 	while (prj->finish == 0)
 		usleep(10000);
-	usleep(prj->t_eat + prj->t_sleep);
+	usleep(prj->t_dead);
 }

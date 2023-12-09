@@ -1,0 +1,94 @@
+0000001 1 has taken a fork
+0000001 1 has taken a fork
+0000001 1 is eating
+0000002 2 has taken a fork
+0000002 2 has taken a fork
+0000002 2 is eating
+0000202 1 is sleeping
+0000202 3 has taken a fork
+0000202 3 has taken a fork
+0000202 3 is eating
+0000203 2 is sleeping
+0000203 4 has taken a fork
+0000203 4 has taken a fork
+0000203 4 is eating
+0000402 1 is thinking
+0000403 3 is sleeping
+0000403 5 has taken a fork
+0000403 5 has taken a fork
+0000403 5 is eating
+0000404 2 is thinking
+0000404 4 is sleeping
+0000404 1 has taken a fork
+0000404 1 has taken a fork
+0000404 1 is eating
+0000604 3 is thinking
+0000604 5 is sleeping
+0000604 2 has taken a fork
+0000604 4 is thinking
+0000604 2 has taken a fork
+0000604 2 is eating
+0000605 1 is sleeping
+0000605 3 has taken a fork
+0000605 3 has taken a fork
+0000605 3 is eating
+0000805 5 is thinking
+0000805 2 is sleeping
+0000805 4 has taken a fork
+0000805 4 has taken a fork
+0000805 4 is eating
+0000806 1 is thinking
+0000806 3 is sleeping
+0000806 5 has taken a fork
+0000806 5 has taken a fork
+0000806 5 is eating
+0001005 2 is thinking
+0001006 4 is sleeping
+0001006 1 has taken a fork
+0001006 1 has taken a fork
+0001006 1 is eating
+0001006 5 is sleeping
+0001006 2 has taken a fork
+0001006 2 has taken a fork
+0001006 2 is eating
+0001007 3 is thinking
+0001207 4 is thinking
+0001207 2 is sleeping
+0001207 3 has taken a fork
+0001207 3 has taken a fork
+0001207 3 is eating
+0001207 1 is sleeping
+0001207 5 is thinking
+0001207 4 has taken a fork
+0001207 4 has taken a fork
+0001207 4 is eating
+0001408 2 is thinking
+0001408 3 is sleeping
+0001408 4 is sleeping
+0001408 1 is thinking
+0001408 5 has taken a fork
+0001408 2 has taken a fork
+0001408 5 has taken a fork
+0001408 2 has taken a fork
+0001408 5 is eating
+0001408 2 is eating
+0001609 4 is thinking
+0001609 3 is thinking
+0001609 5 is sleeping
+0001609 1 has taken a fork
+0001609 2 is sleeping
+0001609 4 has taken a fork
+0001609 1 has taken a fork
+0001609 4 has taken a fork
+0001609 1 is eating
+0001609 4 is eating
+0001810 5 is thinking
+0001810 4 is sleeping
+0001810 3 has taken a fork
+0001810 3 has taken a fork
+0001810 3 is eating
+0001810 2 is thinking
+0001810 1 is sleeping
+0001810 5 has taken a fork
+0001810 5 has taken a fork
+0001810 5 is eating
