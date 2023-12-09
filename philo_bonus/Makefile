@@ -1,6 +1,6 @@
 NAME		= philo_bonus
 
-SRC			= philosophers.c \
+SRC			= philos.c \
 			  del_obj.c \
 			  init_obj.c \
 			  file_work.c \
@@ -13,7 +13,7 @@ SRCDIR		= ./project/philosophers/
 OBJ			= ${addprefix ${SRCDIR}, ${SRC:.c=.o}}
 
 CC			= cc
-FLAGS		= -fsanitize=address
+FLAGS		= 
 
 .c.o:		
 			@$(CC) -c $(FLAGS) -o $@ $<

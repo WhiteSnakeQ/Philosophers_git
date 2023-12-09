@@ -6,7 +6,7 @@
 /*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:29:27 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/09 08:47:46 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/09 10:54:42 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ void	kill_all(int size, t_prj *prj)
 
 	i = 0;
 	while (size > i)
-	{
-		printf("%d %d\n", prj->philos[i].pid, get_time(prj, 2));
 		kill(prj->philos[i++].pid, 15);
-	}
 	close_sema(prj);
 }
 
@@ -54,7 +51,6 @@ void	made_process(t_prj *prj, int i)
 		if (prj->philos[i].pid == 0)
 			play_one(&prj->philos[i]);
 	}
-	printf("%d last\n", get_time(prj, 2));
 	waitpid(-1, &f, 0);
 	kill_all(prj->num_philsr, prj);
 }

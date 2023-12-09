@@ -6,7 +6,7 @@
 /*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:29:27 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/09 08:50:51 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/09 10:34:20 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 # include <fcntl.h>
 # include <sys/time.h>
 # include <fcntl.h>
-# include <pthread.h>
-# include <string.h>
 # include <semaphore.h>
 # include <sys/stat.h>
 # include <signal.h>
@@ -37,7 +35,6 @@
 # define SLEEP " is sleeping\n"
 # define DEAD " died\n"
 # define THINK " is thinking\n"
-# define FINISH_MESS "\nFINISH\n"
 
 # define NAME "philo_bonus_report.txt"
 # define SEM_WRITE "/write"

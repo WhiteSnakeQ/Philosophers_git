@@ -6,11 +6,12 @@
 /*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:29:27 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/09 08:32:57 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/09 10:01:15 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers_bonus.h"
+#include "string.h"
 
 static int	calc_size(unsigned int digit)
 {

@@ -6,7 +6,7 @@
 /*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:29:27 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/09 09:35:09 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/09 10:31:35 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static int	sleep_p(t_philo *philo)
 
 void	*play_one(t_philo *philo)
 {
-	printf("%d\n", get_time(philo->mother, 2));
 	if (philo->mother->num_philsr == 1)
 	{
 		usleep(philo->t_dead);
