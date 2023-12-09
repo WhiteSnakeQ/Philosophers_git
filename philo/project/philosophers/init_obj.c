@@ -6,7 +6,7 @@
 /*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:29:27 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/09 04:01:53 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/09 10:56:28 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	setub_philo(t_philo *philo, t_prj *prj, int i)
 	philo->last_act = 0;
 	philo->action = 0;
 	philo->t_dead = prj->t_dead;
+	philo->compl = 0;
 	philo->fork[0] = prj->forks[i];
 	philo->fork[1] = prj->forks[(i + 1) % prj->num_philsr];
 	philo->t_l_eat = 0;

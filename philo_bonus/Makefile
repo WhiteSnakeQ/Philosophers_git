@@ -1,6 +1,6 @@
-NAME		= philo
+NAME		= philo_bonus
 
-SRC			= philosophers.c \
+SRC			= philos.c \
 			  del_obj.c \
 			  init_obj.c \
 			  file_work.c \

@@ -6,11 +6,11 @@
 /*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:29:27 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/09 11:03:47 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/09 10:35:24 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philosophers_bonus.h"
 
 static int	str_len(char *str)
 {
@@ -39,24 +39,23 @@ int	log_intit(void)
 	return (fd);
 }
 
-void	action(char *message, t_philo *philo, int time)
+int	action(char *message, t_philo *philo, int time)
 {
-	char		*str;
-	char		*str2;
+	char			*str;
+	char			*str2;
 
-	pthread_mutex_lock(&philo->mother->mutex_eat);
-	if (philo->mother->close == 1)
-		return ;
+	sem_wait(philo->mother->write);
 	str = to_str(time);
 	str = make_time(str);
 	write_file(philo->mother->fd, str);
 	write_file(philo->mother->fd, " ");
 	str2 = to_str(philo->number);
 	write_file(philo->mother->fd, str2);
-	free(str2);
 	write_file(philo->mother->fd, message);
+	free(str2);
 	free(str);
-	pthread_mutex_unlock(&philo->mother->mutex_eat);
+	sem_post(philo->mother->write);
+	return (1);
 }
 
 void	print_dead(t_philo *philo)
@@ -66,15 +65,11 @@ void	print_dead(t_philo *philo)
 	char		*str;
 
 	usleep(philo->t_dead);
-	pthread_mutex_lock(&philo->mother->dead);
-	time = philo->last_act + philo->t_dead;
-	philo->mother->close = 1;
-	delete_mut(philo->mother->forks, philo->mother->num_philsr);
-	pthread_mutex_destroy(&philo->mother->mutex_eat);
+	sem_wait(philo->mother->write);
+	time = get_time(philo->mother, 2);
 	fd = philo->mother->fd;
-	philo->mother->finish = 1;
 	usleep(1000);
-	write_file(fd, "\n********************\n********************\n");
+	write_file(fd, "********************\n********************\n");
 	str = make_time(to_str(time / 1000));
 	write_file(fd, str);
 	free(str);
@@ -84,5 +79,5 @@ void	print_dead(t_philo *philo)
 	free(str);
 	write_file(fd, DEAD);
 	write_file(fd, "********************\n********************\n");
-	pthread_mutex_destroy(&philo->mother->dead);
+	exit(1);
 }

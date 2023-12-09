@@ -6,42 +6,51 @@
 /*   By: kreys <kirrill20030@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:29:27 by kreys             #+#    #+#             */
-/*   Updated: 2023/12/09 11:00:43 by kreys            ###   ########.fr       */
+/*   Updated: 2023/12/09 10:54:42 by kreys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philosophers_bonus.h"
 
-void	*finish(t_philo *philo)
+void	*finish(t_philo **philo)
 {
-	philo->mother->c_finish++;
-	if (philo->mother->c_finish == philo->mother->num_philsr)
-		philo->mother->finish = 1;
 	return (0);
 }
 
-void	change_mutex_eat(t_philo *philo, int mod)
-{
-	if (mod == LOCK)
-	{
-		philo->t_l_eat = get_time(philo->mother, 2);
-		pthread_mutex_lock(&philo->fork[0]->mutex);
-		philo->fork[0]->active = 1;
-		pthread_mutex_lock(&philo->fork[1]->mutex);
-		philo->fork[1]->active = 1;
-	}
-	else
-	{
-		pthread_mutex_unlock(&philo->fork[0]->mutex);
-		pthread_mutex_unlock(&philo->fork[1]->mutex);
-		philo->fork[1]->active = 0;
-		philo->fork[0]->active = 0;
-	}
-}
-
-void	eat_write(t_philo *philo)
+int	eat_write(t_philo *philo)
 {
 	action(FORKT, philo, philo->last_act / 1000);
 	action(FORKT, philo, philo->last_act / 1000);
 	action(EAT, philo, philo->last_act / 1000);
+	return (1);
+}
+
+void	kill_all(int size, t_prj *prj)
+{
+	int	i;
+
+	i = 0;
+	while (size > i)
+		kill(prj->philos[i++].pid, 15);
+	close_sema(prj);
+}
+
+void	made_process(t_prj *prj, int i)
+{
+	int		f;
+
+	while (++i < prj->num_philsr)
+		setub_philo(&prj->philos[i], prj, i);
+	i = -1;
+	get_time(prj, 1);
+	while (++i < prj->num_philsr)
+	{
+		prj->philos[i].pid = fork();
+		if (prj->philos[i].pid == -1)
+			exit(1);
+		if (prj->philos[i].pid == 0)
+			play_one(&prj->philos[i]);
+	}
+	waitpid(-1, &f, 0);
+	kill_all(prj->num_philsr, prj);
 }
